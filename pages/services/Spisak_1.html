@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SunControl</title>
+
+  <!-- Link -->
+  <link href="/Style.css" type="text/css" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css">
+
+
+  <!-- Script -->
+  <script src="https://kit.fontawesome.com/bf41f84b4d.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.20/lodash.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+  <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+
+
+  <!-- Meta -->
+  <meta property="og:image:width" content="1920">
+  <meta property="og:image:height" content="1080">
+
+  <!-- Style -->
+  <style type="text/css">
+    .esc_offersTitle {
+      font-size: 150%
+    }
+
+    [data-app=eastsideco_cartOffers] {
+      margin-bottom: 1rem
+    }
+
+    [data-app=eastsideco_cartOffers] * span {
+      padding: 2px
+    }
+
+    .esc_product {
+      display: inline-block;
+      vertical-align: top;
+      width: 25%;
+      padding: 4px
+    }
+
+    .esc_addOfferProduct {
+      float: right
+    }
+
+    .esc_productImage {
+      width: 100%
+    }
+
+    .esc_variant {
+      padding: 2px
+    }
+
+    .esc_dissallowedItem,
+    .esc_multiItem {
+      font-weight: 700
+    }
+
+    .esc_dissallowedItems,
+    .esc_multipleOfferItemsContainter {
+      margin-bottom: 10px
+    }
+
+    .esc_variantsDropdown {
+      width: 60%;
+      display: inline-block
+    }
+
+    .esc_addOfferProduct,
+    .esc_variantsDropdown {
+      max-width: 50% !important
+    }
+
+    @media screen and (max-width:768px) {
+      .esc_product {
+        width: 33.333333333%
+      }
+
+      .esc_addOfferProduct,
+      .esc_variantsDropdown {
+        max-width: 50%;
+        float: none;
+        width: 100% !important;
+        max-width: unset !important;
+        display: block
+      }
+    }
+
+    @media screen and (max-width:512px) {
+      .esc_product {
+        width: 50%
+      }
+    }
+
+    .esc_productImage_addToCart {
+      cursor: pointer
+    }
+
+    .esc_productImage_addToCart_imageClicked {
+      cursor: default !important;
+      pointer-events: none
+    }
+  </style>
+  <style type="text/css">
+    .esc-cc__modern-container {
+      text-align: center
+    }
+
+    .esc-cc__modern-container__products-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      text-align: left;
+      width: 100%;
+      overflow: hidden
+    }
+
+    .esc-cc__modern-container__product {
+      position: relative;
+      flex-basis: 250px;
+      padding: 10px
+    }
+
+    .esc-cc__modern-container__product a {
+      display: block
+    }
+
+    .esc-cc__modern-container__product--sizeXS {
+      flex-basis: 150px
+    }
+
+    .esc-cc__modern-container__product--sizeS {
+      flex-basis: 200px
+    }
+
+    .esc-cc__modern-container__product--sizeM {
+      flex-basis: 250px
+    }
+
+    .esc-cc__modern-container__product--sizeL {
+      flex-basis: 300px
+    }
+
+    .esc-cc__modern-container__product--sizeXL {
+      flex-basis: 350px
+    }
+
+    .esc-cc__modern-container__product-price {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: rgba(0, 0, 0, .7);
+      color: #fff;
+      padding: 8px 22px
+    }
+
+    .esc-cc__modern-container__product-image {
+      width: 100%;
+      padding-top: 100%;
+      background-size: cover;
+      background-position: 50% 50%
+    }
+
+    .esc-cc__modern-container__product-title {
+      text-align: center;
+      padding: 0;
+      margin: .8rem 0 .5rem;
+      font-size: 1rem;
+      line-height: 1.5rem;
+      height: 3rem;
+      overflow: hidden
+    }
+
+    .esc-cc__modern-container__product-variants {
+      margin-bottom: .6rem;
+      width: 60%;
+      float: left
+    }
+
+    .esc-cc__modern-container__add-to-cart {
+      width: 40%;
+      text-align: center;
+      float: right
+    }
+
+    .esc-cc__modern-container__add-to-cart--sizeFull {
+      float: none;
+      width: 100%
+    }
+
+    .esc-cc__modern-container__product-image_add_to_cart {
+      cursor: pointer
+    }
+
+    .esc-cc-modern-container_clicked_image {
+      cursor: default !important;
+      pointer-events: none
+    }
+  </style>
+  <style type="text/css">
+    .esc-cc__add-to-cart-btn__original {
+      display: none !important
+    }
+
+    body.esc-cc__modal__body {
+      overflow: hidden
+    }
+
+    .esc-cc__modal__background {
+      position: fixed;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, .8);
+      z-index: 900000
+    }
+
+    .esc-cc__modal__element {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 90%;
+      height: auto;
+      max-width: 1000px;
+      max-height: 90%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      z-index: 900001;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch
+    }
+
+    .esc-cc__modal__container {
+      padding: 2rem
+    }
+
+    .esc-cc__modal__close {
+      position: absolute;
+      padding: 5px 10px;
+      top: 0;
+      right: 0;
+      font-size: 18px;
+      font-family: sans-serif;
+      cursor: pointer
+    }
+
+    .esc-cc__modal__close:hover {
+      background: rgba(0, 0, 0, .15)
+    }
+  </style>
+
+</head>
+
+<body class="js">
+  <div></div>
+  <div role="dialog" aria-live="polite" aria-label="cookieconsent" aria-describedby="cookieconsent:desc"
+    class="cc-window cc-floating cc-type-info cc-theme-block cc-bottom cc-left cc-color-override--1943441976 cc-invisible"
+    style="display: none;">
+    <!--googleoff: all--><span id="cookieconsent:desc" class="cc-message">This website uses cookies to ensure you get
+      the best experience on our website. <a aria-label="learn more about cookies" role="button" tabindex="0"
+        class="cc-link" href="/pages/cookies" rel="noopener noreferrer nofollow" target="_blank">Learn more</a></span>
+    <div class="cc-compliance"><a aria-label="dismiss cookie message" role="button" tabindex="0"
+        class="cc-btn cc-dismiss">Got it!</a></div>
+    <!--googleon: all-->
+  </div>
+  <div class="wrapper">
+    <header class="siteheader">
+      <!-- Left side of header -->
+      <!-- Logo -->
+      <div class="siteheader-first">
+        <a class="siteheader-logo" href="/" role="banner">
+          <img src="/Images/Logo/glavni-logo.png" alt="SunControl">
+        </a>
+        <!-- Navigation -->
+        <nav class="siteheader-nav" role="navigation" aria-label="Main">
+          <a href="/" class="siteheader-nav-item is-products">Usluge</a>
+          <a href="/pages/prices.html" class="siteheader-nav-item is-hertige">Cene</a>
+          <a href="/pages/about.html" class="siteheader-nav-item is-heritage">O nama</a>
+          <a href="/pages/gallery.html" class="siteheader-nav-item is-hertige">Galerija</a>
+          <a href="/pages/contact.html" class="siteheader-nav-item is-support">Kontakt</a>
+        </nav>
+      </div>
+      <!-- Right side of header -->
+      <div class="siteheader-last">
+        <nav class="siteheader-nav is-secondary">
+          <a href="/cart" class="siteheader-cart">
+            <img src="/Images/Flag/English-flag.jpg" alt="" class="icon">
+            <span class="badge">
+              <div id="CartCount" class="site-header__cart-count hide" data-cart-count-bubble="">
+                <span data-cart-count="">Eng</span>
+              </div>
+            </span>
+          </a>
+          <!-- Bans -->
+          <a class="siteheader-toggle">
+            <div class="siteheader-toggle-buns">
+              <span class="siteheader-toggle-bun"></span>
+              <span class="siteheader-toggle-bun"></span>
+            </div>
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Page -->
+    <main class="main" role="main">
+      <div class="page is-heritage">
+        <h3 style="text-align: center">Spisak distributera</h3>
+        <br>
+        <h4>Honda</h4>
+        <p>
+          Fiksni tel: 011/2010-938 - Bogdan
+          <br>
+          Mob. tel.: /
+          <br>
+          e-mail: <a href="mailto:bogdan.lackovic@deltaautomoto.rs">bogdan.lackovic@deltaautomoto.rs</a>
+          <br>
+          <i>Napomena:</i> Poslati sliku licne karte i saobracajne
+        </p>
+        <br>
+        <br>
+        <h4>Citroen</h4>
+        <p>
+          Fiksni tel: 011/3538-580 - Darko
+          <br>
+          Mob. tel.: /
+          <br>
+          e-mail: <a href="mailto:potvrde@citroen.rs">potvrde@citroen.rs</a>
+          <br>
+          Web:<a href="https://www.citroen.rs/wp-content/uploads/2018/12/CITROEN_Zahtev_za_izdavanje_potvrde.pdf">https://www.citroen.rs/wp-content/uploads/2018/12/CITROEN_Zahtev_za_izdavanje_potvrde.pdf</a> 
+          <br>
+          <i>Napomena:</i> Popuniti obrazac
+        </p>
+        <br>
+        <br>
+        <h4>Skoda</h4>
+        <p>
+          Fiksni tel: 011/3072-800 - Marko
+          <br>
+          Mob. tel.: /
+          <br>
+          e-mail: <a href="mailto:tanja.pacic@autocacak.co.rs">tanja.pacic@autocacak.co.rs</a>
+          <br>
+          <i>Napomena:</i> Poslati sliku licne karte i saobracajne
+        </p>
+        <br>
+        <br>
+        <h4>British Motors (Land Rover i Jaguar)</h4>
+        <p>
+          Fiksni tel: 011/413-4444 - Dusan
+          <br>
+          Mob. tel.: /
+          <br>
+          e-mail: <a href="mailto:dusan.vukicevic@britishmotors.rs">dusan.vukicevic@britishmotors.rs</a>
+          <br>
+          <i>Napomena:</i> Poslati sliku licne karte i saobracajne
+        </p>
+        <br>
+        <br>
+        <h4>Lada</h4>
+        <p>
+          Fiksni tel: 011/2492-302 
+          <br>
+          Mob. tel.: /
+          <br>
+          e-mail: <a href='mailto:office@lada.co.rs'>office@lada.co.rs</a>
+          <br>
+          <a href='mailto:office.rusauto@gmail.com'>office.rusauto@gmail.com</a>
+          <br>
+          <i>Napomena:</i> Poslati sliku licne karte i saobracajne na oba meil-a
+        </p>
+        <br>
+        <br>
+        <h4>Fiat, Lancia, Alfa Romeo, Chrysler, Jeep</h4>
+        <p>
+          Fiksni tel: 0800/342-800 - Besplatan telefon
+          <br>
+          Mob. tel.: /
+          <br>
+          e-mail: <a href="mailto:fas.prodaja.potwrde@fcagroup.com">fas.prodaja.potwrde@fcagroup.com</a>
+          <br>
+          <i>Napomena:</i> Poslati sliku licne karte i saobracajne
+        </p>
+        <br>
+        <br>
+        <h4>Opel</h4>
+        <p>
+          Fiksni tel: 032/3821-192 - Stefan
+          <br>
+          Mob. tel.: /
+          <br>
+          e-mail: <a href="mailto:s.cendic@interauto-trade.rs">s.cendic@interauto-trade.rs</a>
+          <br>
+          <i>Napomena:</i> Poslati sliku licne karte i saobracajne
+        </p>
+        <br>
+        <br>
+        <h4>Porsche, Audi, Volkswagen, Seat, Bently</h4>
+        <p>
+          Fiksni tel: 011/2075-676
+          <br>
+          Mob. tel.: /
+          <br>
+          e-mail: <a href="mailto:srdjan.petric@porsche.rs">srdjan.petric@porsche.rs</a>
+          <br>
+          <i>Napomena:</i> Poslati sliku licne karte i saobracajne
+        </p>
+        <br>
+        <br>
+        <h4>Peugot, Mitsubishi</h4>
+        <p>
+          Fiksni tel: 011/2022-300
+          <br>
+          Mob. tel.: /
+          <br>
+          Web:
+          <br>
+          Za Peugot: <a href="https://www.peugot.rs/potvrde_i_uverenja">https://www.peugot.rs/potvrde_i_uverenja</a>
+          <br>
+          Za Mitsubishi: <a href="https//inoto.rs/potvrde-i-uverenja/">https//inoto.rs/potvrde-i-uverenja/</a>
+          <br>
+          <i>Napomena:</i> Popuniti obrazac 
+        </p>
+        <br>
+        <br>
+        <h4>Renault, Nissan, Dacia</h4>
+        <p>
+          Fiksni tel: 011/2179-032, 011/2176-422 - Aleksandra
+          <br>
+          Mob. tel.: /
+          <br>
+          e-mail: <a href="mailto:list.potvrderns@renault.com">list.potvrderns@renault.com</a>
+          <br>
+          <i>Napomena:</i> Poslati sliku licne karte i saobracajne
+        </p>
+        <br>
+        <br>
+        <h4>Suzuki</h4>
+        <p>
+          Fiksni tel: 011/2888-744 - Nikola
+          <br>
+          Mob. tel.: 063/451-463 - Nikola
+          <br>
+          e-mail: <a href="mailto:nikola.jelic@suzuki-srbija.rs">nikola.jelic@suzuki-srbija.rs</a>
+          <br>
+          <i>Napomena:</i> Poslati sliku licne karte i saobracajne. Prezuzimanje potvrde je licno za vozila na teritoriji Beograda, a za unutrasnjost salju adresirano.
+        </p>
+        <br>
+        <br>
+        <h4>Subaru</h4>
+        <p>
+          Fiksni tel: 011/3072-582
+          <br>
+          Mob. tel.: /
+          <br>
+          e-mail: <a href="mailto:info@subaruserbia.com">info@subaruserbia.com</a>
+          <br>
+          <i>Napomena:</i> Poslati sliku licne karte i saobracajne
+        </p>
+        <br>
+        <br>
+        <h4>Toyota</h4>
+        <p>
+          Fiksni tel: 011/3016-694 - Dusan
+          <br>
+          Mob. tel.: /
+          <br>
+          e-mail: <a href="mailto:dusan.todorovic@magcentar.rs">dusan.todorovic@magcentar.rs</a>
+          <br>
+          <i>Napomena:</i> Poslati sliku licne karte i saobracajne
+        </p>
+        <br>
+        <br>
+        <h4>Dooge</h4>
+        <p>
+          <i>Napomena:</i> Nema predstavnistvo u Srbiji i ne mora da ima potvrdu, sto vazi i za ostale proizvodjace koji nemaju predstavnistvo kod nas. Pojedini japanski proizvodjaci ne dozvoljavaju zatamnjivanje prednjeg stakla.
+        </p>
+
+            
+                
+                
+          </div>
+    
+    </main>
+
+    <!-- Aside -->
+    <aside class="leftside">
+        <div class="follow_us">
+          <img src="/Images/Aside/Untitled-1.png" alt="Follow us on Social Media">
+        </div>
+        <div class="social-links is-vertical">
+          <a href="https://www.reddit.com" target="_BLANK" class="social-links-item">
+            <i class="fab fa-reddit-alien"></i>
+          </a>
+          <a href="https://www.facebook.com" target="_BLANK" class="social-links-item">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="https://twitter.com" target="_BLANK" class="social-links-item">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="https://www.instagram.com" target="_BLANK" class="social-links-item">
+            <i class="fab fa-instagram"></i>
+          </a>
+        </div>
+      </aside>
+  
+      <!-- Footer -->
+      <footer class="sitefooter">
+        <div class="sitefooter-logo">
+          <img src="/Images/Logo/glavni-logo.png" alt="SunControl">
+        </div>
+  
+        <div class="sitefooter-grid">
+          <div class="sitefooter-grid-item is-links">
+  
+            <nav class="sitefooter-nav">
+  
+              <div class="sitefooter-nav-item">
+                <a href="/pages/about.html" class="sitefooter-nav-link">About us</a>
+              </div>
+  
+              <div class="sitefooter-nav-item">
+                <a href="/pages/cookies-policy" class="sitefooter-nav-link">Cookie Policy</a>
+              </div>
+  
+              <div class="sitefooter-nav-item">
+                <a href="/pages/cookies-policy" class="sitefooter-nav-link">Cookie Policy</a>
+              </div>
+  
+              <div class="sitefooter-nav-item">
+                <a href="/policies/terms-of-service" class="sitefooter-nav-link">Terms of service</a>
+              </div>
+  
+            </nav>
+  
+            <div class="social-links">
+              <a href="https://www.reddit.com" target="_BLANK" class="social-links-item">
+                <i class="fab fa-reddit-alien"></i>
+              </a>
+              <a href="https://www.facebook.com" target="_BLANK" class="social-links-item">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="https://twitter.com" target="_BLANK" class="social-links-item">
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a href="https://www.instagram.com" target="_BLANK" class="social-links-item">
+                <i class="fab fa-instagram"></i>
+              </a>
+            </div>
+  
+          </div>
+  
+          <div class="sitefooter-grid-item is-text">
+            <p class="is-small">
+              <span class="text-highlight">SonControl</span> je regionalna kompanija koja svoje poslovanje usmerava
+              isključivo na <span className="text-cursive">zatamnjivanje stakala</span> i veleprodaju folija za stakla za
+              profesionalnu ugradnju. <span class="text-highlight"> Dobrodosli!</span>
+            </p>
+          </div>
+  
+          <div class="sitefooter-grid-item is-newsletter">
+            <div class="sitefooter-newsletter">
+              <h4>Upisite se za nas bilten:</h4>
+  
+              <form action="#" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form"
+                target="_blank" novalidate="novalidate">
+                <div class="newsletter-field">
+                  <input type="email" name="EMAIL" class="newsletter-input" id="mce-EMAIL" aria-required="true">
+                  <button type="submit" name="subscribe" class="newsletter-button button is-white">
+                    <span>
+                      Sign up
+                    </span>
+                  </button>
+                </div>
+                <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                  <input type="text" name="b_bca7f444ec38266c53359fb7a_71df3d2783" tabindex="-1" value="">
+                </div>
+                <p class="newsletter-hint">Mozete nam verovati.</p>
+              </form>
+            </div>
+          </div>
+  
+        </div>
+  
+        <div class="sitefooter-copyright">
+          Copyright 2022 SunControl
+        </div>
+      </footer>
+  
+      <!-- Mega menu -->
+      <div class="mega">
+        <div class="mega-backdrop"></div>
+        <div class="mega-inner">
+          <div class="mega-header">
+            <a class="mega-logo" href="/">
+              <img src="/Images/Logo/glavni-logo.png" alt="SunControl">
+            </a>
+  
+            <a href="" class="mega-close siteheader-toggle is-active is-toggled">
+              <div class="siteheader-toggle-buns">
+                <span class="siteheader-toggle-bun"></span>
+                <span class="siteheader-toggle-bun"></span>
+              </div>
+            </a>
+          </div>
+  
+          <div class="mega-topnav">
+            <a href="/pages/services/" class="mega-topnav-item">Usluge</a>
+            <a href="/pages/prices.html" class="mega-topnav-item">Cene</a>
+            <a href="/pages/about.html" class="mega-topnav-item">O nama</a>
+            <a href="/pages/gallery.html" class="mega-topnav-item">Galerija</a>
+            <a href="/pages/contact.html" class="mega-topnav-item">Kontakt</a>
+          </div>
+          <!-- Mega body -->
+          <div class="mega-body">
+            <div class="mega-body-column">
+              <nav class="mega-nav">
+                <!-- First column-->
+                <div class="mega-nav-column">
+                  <h3 class="mega-nav-column-heading">Folije</h3>
+                  <div class="mega-nav-item">
+                    <a href="/pages/services/car_win_foil.html" class="mega-nav-link" data-id="6914709520545">Folije za
+                      auto stakla</a>
+                  </div>
+                  <div class="mega-nav-item">
+                    <a href="/pages/services/win_foil.html" class="mega-nav-link" data-id="6915023241377">Folije za
+                      staklene panele</a>
+                  </div>
+                  <div class="mega-nav-item">
+                    <a href="/pages/services/safety_foil.html" class="mega-nav-link" data-id="6914368602273">Sigurnosne
+                      folije</a>
+                  </div>
+                </div>
+  
+                <!-- Second column -->
+                <div class="mega-nav-column">
+                  <h3 class="mega-nav-column-heading">Prodaja</h3>
+                  <div class="mega-nav-item">
+                    <a href="/pages/services/foil.html" class="mega-nav-link" data-id="8143710661">Folije</a>
+                  </div>
+                </div>
+  
+                <!-- Third column -->
+                <div class="mega-nav-column">
+                  <h3 class="mega-nav-column-heading">Ostalo</h3>
+                  <div class="mega-nav-item">
+                    <a href="/pages/services/atest.html" class="mega-nav-link" data-id="6916511629473">Atesti</a>
+                  </div>
+                  <div class="mega-nav-item">
+                    <a href="/pages/services/FAQ.html" class="mega-nav-link" data-id="5819489222817">Cesta pitanja</a>
+                  </div>
+                </div>
+              </nav>
+  
+              <!-- Mega footer -->
+              <div class="mega-links is-footer">
+                <a href="/pages/about.html" class="mega-links-item">O nama</a>
+                <a href="/pages/prices.html" class="mega-links-item">Cene</a>
+                <a href="/pages/cookies-policy" class="mega-links-item">Cookie Policy</a>
+                <a href="/policies/terms-of-service" class="mega-links-item">Terms of service</a>
+              </div>
+  
+              <!-- Mega social links-->
+              <div class="social-links">
+                <a href="https://www.reddit.com" target="_BLANK" class="social-links-item">
+                  <i class="fab fa-reddit-alien"></i>
+                </a>
+                <a href="https://www.facebook.com" target="_BLANK" class="social-links-item">
+                  <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://twitter.com" target="_BLANK" class="social-links-item">
+                  <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://www.instagram.com" target="_BLANK" class="social-links-item">
+                  <i class="fab fa-instagram"></i>
+                </a>
+              </div>
+  
+              <p class="mega-copyright">Copyright 2022 SunControl</p>
+            </div>
+  
+            <!-- Pictures -->
+            <div class="mega-body-column">
+              <!-- First-->
+              <div class="mega-promo" id="product_6914709520545">
+                <figure class="mega-promo-image">
+                  <img src="/Images/Folije/car-foil/5.jpg" alt="Folija za auto stakla">
+                </figure>
+              </div>
+              <div class="mega-promo" id="product_6915023241377">
+                <figure class="mega-promo-image">
+                  <img src="/Images/Mega/architecture-g0eeffe70e_1920.jpg" alt="Stakleni paneli">
+                </figure>
+              </div>
+              <div class="mega-promo" id="product_6914368602273">
+                <figure class="mega-promo-image">
+                  <img src="/Images/Mega/Safety-alt-600x400.jpg" alt="Sigurnosne Folije">
+                </figure>
+              </div>
+  
+              <!-- Second -->
+              <div class="mega-promo" id="product_8143710661">
+                <figure class="mega-promo-image">
+                  <img src="/Images/Mega/sample-of-window-film.jpg" alt="Folije">
+                </figure>
+              </div>
+  
+              <!-- Third -->
+              <div class="mega-promo" id="product_6916511629473">
+                <figure class="mega-promo-image">
+                  <img src="/Images/Mega/art-g1d8f9f8df_1920.jpg" alt="Atest">
+                </figure>
+              </div>
+              <div class="mega-promo" id="product_5819489222817">
+                <figure class="mega-promo-image">
+                  <img src="/Images/Mega/FAQ Logo.png" alt="FAQ">
+                </figure>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+  
+      
+  
+      <!-- Script -->
+      <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+      <script>
+        document.documentElement.class = document.documentElement.class.replace('no-js', 'js');
+      </script>
+      <script src='/Components/siteheader.js' type="text/javascript"></script>
+      <script src='/Components/toast.js' type="text/javascript"></script>
+      <script src='/Components/mega.js' type="text/javascript"></script>
+      <script src='/Components/dropdown.js' type="text/javascript"></script>
+      <script src="/Components/carousel.js" type="text/javascript"></script>
+     
+  
+  
+    <iframe data-product="web_widget" title="No content" tabindex="-1" aria-hidden="true" style="width: 0px; height: 0px; border: 0px none; position: absolute; top: -9999px;" src="about:blank"></iframe>
+  
+</body>
+  
+</html>
